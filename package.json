@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-standard",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Ember-cli standard support, for checking your application matches your coding standards.",
   "directories": {
     "doc": "doc",
@@ -83,6 +83,14 @@
     "defaultBlueprint": "ember-cli-eslint"
   },
   "standard": {
-    "globals": [ "it", "describe", "beforeEach", "afterEach", "visit", "andThen", "currentURL" ]
+    "globals": [
+      "it",
+      "describe",
+      "beforeEach",
+      "afterEach",
+      "visit",
+      "andThen",
+      "currentURL"
+    ]
   }
 }
