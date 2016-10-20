@@ -65,12 +65,15 @@ module.exports = {
         return tests.join('\n')
       },
       console: {
-        log: (message) => {
+        log (message) {
           ui.writeLine(message)
         },
-        error: (message) => {
+        error (message) {
           ui.writeLine(message, 'ERROR')
         }
+      },
+      ignore ( path ) {
+        return /^modules\//.test(path)
       }
     }))
   }
