@@ -14,7 +14,7 @@ describe('ember-cli-Standard', function () {
 
   it('passes if Standard tests pass', function () {
     return emberTest().then(function (result) {
-      console.log(result)
+      console.log(result.stdout)
       expect(result.error).to.not.exist
       expect(result.stdout.match(/[^\r\n]+/g))
         .to.contain('ok 1 PhantomJS 2.1 - Standard - app.js: should pass Standard')
@@ -35,6 +35,7 @@ describe('ember-cli-Standard', function () {
     fs.outputFileSync(FAILING_FILE, 'let unused = 6;\n')
 
     return emberTest().then(function (result) {
+      console.log(result.stdout)
       expect(result.error).to.exist
       expect(result.stdout.match(/[^\r\n]+/g))
         .to.contain('ok 1 PhantomJS 2.1 - Standard - app.js: should pass Standard')

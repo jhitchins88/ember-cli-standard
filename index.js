@@ -29,7 +29,6 @@ module.exports = {
   lintTree: function (type, tree) {
     let project = this.project
     let ui = this.ui
-    let tests = []
 
     if (type === 'templates') {
       return undefined
@@ -48,21 +47,12 @@ module.exports = {
           if (results.messages) {
             messages = jsStringEscape('\n' + render(results.messages));
           }
-        } else {
-          // backwards compat support for broccoli-lint-eslint versions
-          // 2.3.0 and older...
-          passed = !errors || errors.length === 0;
-
-          if (errors) {
-            messages = jsStringEscape('\n' + render(errors));
-          }
         }
-        tests.push(project.generateTestFile('Standard - ' + relativePath, [{
+        return project.generateTestFile('Standard - ' + relativePath, [{
           name: 'should pass Standard',
           passed: passed,
           errorMessage: relativePath + ' should pass standard.' + messages
-        }]))
-        return tests.join('\n')
+        }])
       },
       console: {
         log (message) {
