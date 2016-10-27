@@ -12,7 +12,7 @@ module.exports = {
   locals: function (options) {
     var adapterName = options.entity.name
     var baseClass = 'JSONAPIAdapter'
-    var importStatement = 'import JSONAPIAdapter from \'ember-data/adapters/json-api\';'
+    var importStatement = 'import JSONAPIAdapter from \'ember-data/adapters/json-api\''
     var isAddon = options.inRepoAddon || options.project.isEmberCLIAddon()
     var relativePath = pathUtil.getRelativePath(options.entity.name)
 
@@ -31,7 +31,7 @@ module.exports = {
     if (options.baseClass) {
       baseClass = stringUtil.classify(options.baseClass.replace('/', '-'))
       baseClass = baseClass + 'Adapter'
-      importStatement = 'import ' + baseClass + ' from \'' + relativePath + options.baseClass + '\';'
+      importStatement = 'import ' + baseClass + ' from \'' + relativePath + options.baseClass + '\''
     }
 
     return {

@@ -61,7 +61,7 @@ module.exports = {
         templatePath = pathUtil.getRelativeParentPath(options.entity.name) +
           'templates/components/' + stringUtil.dasherize(options.entity.name)
       }
-      importTemplate = 'import layout from \'' + templatePath + '\';\n'
+      importTemplate = 'import layout from \'' + templatePath + '\'\n'
       contents = '\n  layout'
     }
 

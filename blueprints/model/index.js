@@ -14,7 +14,7 @@ module.exports = {
     var attrs = []
     var needs = []
     var entityOptions = options.entity.options
-    var importStatements = ['import Model from \'ember-data/model\';']
+    var importStatements = ['import Model from \'ember-data/model\'']
     var shouldImportAttr = false
     var shouldImportBelongsTo = false
     var shouldImportHasMany = false
@@ -58,15 +58,15 @@ module.exports = {
     })
 
     if (shouldImportAttr) {
-      importStatements.push('import attr from \'ember-data/attr\';')
+      importStatements.push('import attr from \'ember-data/attr\'')
     }
 
     if (shouldImportBelongsTo && shouldImportHasMany) {
-      importStatements.push('import { belongsTo, hasMany } from \'ember-data/relationships\';')
+      importStatements.push('import { belongsTo, hasMany } from \'ember-data/relationships\'')
     } else if (shouldImportBelongsTo) {
-      importStatements.push('import { belongsTo } from \'ember-data/relationships\';')
+      importStatements.push('import { belongsTo } from \'ember-data/relationships\'')
     } else if (shouldImportHasMany) {
-      importStatements.push('import { hasMany } from \'ember-data/relationships\';')
+      importStatements.push('import { hasMany } from \'ember-data/relationships\'')
     }
 
     importStatements = importStatements.join(EOL)
