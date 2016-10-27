@@ -39,8 +39,8 @@ module.exports = {
       return
     }
 
-    return this.removePackageFromProject('ember-cli-jshint')
-      .then(_=>this.removePackageFromProject('ember-cli-eslint'))
+    return this.removePackageFromProject('ember-cli-eslint')
+      .then(_=>this.removePackageFromProject('ember-cli-jshint'))
       .then(function () {
         return removeConfig()
       })
