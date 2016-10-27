@@ -122,7 +122,7 @@ module.exports = {
     ui.startProgress('Searching for JSHint and ESLint config files')
     return new RSVP.Promise(function (resolve) {
       var files = walkSync(projectRoot, {
-        globs: ['**/.jshintrc','**/.eslintrs.js'],
+        globs: ['**/.jshintrc','**/.eslintrc.js'],
         ignore: [
           '**/bower_components',
           '**/dist',
