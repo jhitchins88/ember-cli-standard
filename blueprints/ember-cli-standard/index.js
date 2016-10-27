@@ -33,23 +33,25 @@ module.exports = {
   },
 
   afterInstall: function () {
-    var removeJSHintConfig = this._removeJSHintConfig.bind(this)
+    var removeConfig = this._removeConfig.bind(this)
 
     if (!this.removePackageFromProject) {
       return
     }
 
-    return this.removePackageFromProject('ember-cli-jshint').then(function () {
-      return removeJSHintConfig()
-    })
+    return this.removePackageFromProject('ember-cli-jshint')
+      .removePackageFromProject('ember-cli-eslint')
+      .then(function () {
+        return removeConfig()
+      })
   },
 
   /**
-   * Find JSHint configuration files and offer to remove them
+   * Find JSHint and ESLint configuration files and offer to remove them
    *
    * @return {RSVP.Promise}
    */
-  _removeJSHintConfig: function () {
+  _removeConfig: function () {
     var promptRemove = this._promptRemove.bind(this)
     var removeFile = this._removeFile.bind(this)
     var ui = this.ui
@@ -57,7 +59,7 @@ module.exports = {
     return this._findJSHintConfigFiles()
       .then(function (files) {
         if (files.length === 0) {
-          ui.writeLine('No JSHint config files found.')
+          ui.writeLine('No JSHint or ESLint config files found.')
           return RSVP.resolve({
             result: {
               deleteFiles: 'none'
@@ -65,7 +67,7 @@ module.exports = {
           })
         }
 
-        ui.writeLine('\nI found the following JSHint config files:')
+        ui.writeLine('\nI found the following JSHint and ESLint config files:')
         files.forEach(function (file) {
           ui.writeLine('  ' + file)
         })
@@ -109,18 +111,18 @@ module.exports = {
   },
 
   /**
-   * Find JSHint configuration files
+   * Find JSHint and ESLint configuration files
    *
    * @return {Promise->string[]} found file names
    */
-  _findJSHintConfigFiles: function () {
+  _findConfigFiles: function () {
     var projectRoot = this.project.root
     var ui = this.ui
 
-    ui.startProgress('Searching for JSHint config files')
+    ui.startProgress('Searching for JSHint and ESLint config files')
     return new RSVP.Promise(function (resolve) {
       var files = walkSync(projectRoot, {
-        globs: ['**/.jshintrc'],
+        globs: ['**/.jshintrc','**/.eslintrs.js'],
         ignore: [
           '**/bower_components',
           '**/dist',
