@@ -30,7 +30,7 @@ module.exports = {
     let project = this.project
     let ui = this.ui
 
-    if (type === 'templates') {
+    if (type === 'templates' || type === 'addon') {
       return undefined
     }
 
