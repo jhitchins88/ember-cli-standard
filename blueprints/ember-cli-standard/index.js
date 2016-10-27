@@ -56,7 +56,7 @@ module.exports = {
     var removeFile = this._removeFile.bind(this)
     var ui = this.ui
 
-    return this._findJSHintConfigFiles()
+    return this._findConfigFiles()
       .then(function (files) {
         if (files.length === 0) {
           ui.writeLine('No JSHint or ESLint config files found.')
