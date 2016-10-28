@@ -2,11 +2,11 @@
 const standard = require('broccoli-standard')
 const jsStringEscape = require('js-string-escape')
 
-function render(errors) {
-  return errors.map(function(error) {
+function render (errors) {
+  return errors.map(function (error) {
     return error.line + ':' + error.column + ' ' +
-      ' - ' + error.message + ' (' + error.ruleId +')';
-  }).join('\n');
+      ' - ' + error.message + ' (' + error.ruleId + ')'
+  }).join('\n')
 }
 
 module.exports = {
@@ -37,15 +37,15 @@ module.exports = {
     return standard(tree, Object.assign({}, this.options, {
       testGenerator: (relativePath, errors, results) => {
         if (!project.generateTestFile) {
-          return '';
+          return ''
         }
-        var passed, messages;
+        var passed, messages
         if (results) {
-          passed = !results.errorCount || results.errorCount.length === 0;
+          passed = !results.errorCount || results.errorCount.length === 0
 
-          messages = '';
+          messages = ''
           if (results.messages) {
-            messages = jsStringEscape('\n' + render(results.messages));
+            messages = jsStringEscape('\n' + render(results.messages))
           }
         }
         return project.generateTestFile('Standard - ' + relativePath, [{
@@ -62,7 +62,7 @@ module.exports = {
           ui.writeLine(message, 'ERROR')
         }
       },
-      ignore ( path ) {
+      ignore (path) {
         return /^modules\//.test(path)
       }
     }))

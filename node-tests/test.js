@@ -10,19 +10,19 @@ function getDirectories (srcpath) {
     return fs.statSync(path.join(srcpath, file)).isDirectory()
   })
 }
-const blueprint = function(cmd) {
-  let proms = [];
+const blueprint = function (cmd) {
+  let proms = []
   blueprints.forEach((name, i) => {
-    if (/standard/.test(name) || ( /test/.test(name) && !/acceptance/.test(name))) {
+    if (/standard/.test(name) || (/test/.test(name) && !/acceptance/.test(name))) {
       return
     }
     proms.push(new Promise((resolve, reject) => {
-      const command = cmd  === 'g' ? 'Generating' : 'Destroying'
+      const command = cmd === 'g' ? 'Generating' : 'Destroying'
       let output = spawn('ember', [cmd, name, `test-thing${i}`])
 
       output.on('exit', function (code) {
         resolve()
-      });
+      })
     }))
   })
 
@@ -30,7 +30,7 @@ const blueprint = function(cmd) {
     console.log(e)
   })
 }
-const lint = function(type) {
+const lint = function (type) {
   return new Promise((resolve, reject) => {
     exec(`standard ./${type}/**/*.js`, { cwd: __dirname + '/..' }, (error, stdout, stderr) => {
       resolve({error, stdout, stderr})
@@ -87,7 +87,7 @@ describe('ember-cli-Standard', function () {
   })
 
   it('All addon blueprints pass standard', () => {
-    return blueprint('g').then(()=>lint('addon')).then((result) => {
+    return blueprint('g').then(() => lint('addon')).then((result) => {
       expect(result.error).to.be.null
       expect(result.stdout.match(/[^\r\n]+/g))
         .to.be.null
@@ -102,7 +102,7 @@ describe('ember-cli-Standard', function () {
   })
 })
 
-function emberTest ( destroy ) {
+function emberTest (destroy) {
   return new Promise((resolve) => {
     exec('node_modules/.bin/ember test', { cwd: __dirname + '/..' }, (error, stdout, stderr) => {
       resolve({

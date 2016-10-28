@@ -1,10 +1,10 @@
 /* eslint-env node */
 
-var unlink = require('fs').unlink
-var resolve = require('path').resolve
-
-var RSVP = require('rsvp')
-var walkSync = require('walk-sync')
+const unlink = require('fs').unlink
+const resolve = require('path').resolve
+const exec = require('child_process').exec
+const RSVP = require('rsvp')
+const walkSync = require('walk-sync')
 
 /**
  * For each item in the array, call the callback, passing the item as the argument.
@@ -34,16 +34,17 @@ module.exports = {
 
   afterInstall: function () {
     var removeConfig = this._removeConfig.bind(this)
+    const standardFormat = this._standardFormat.bind(this)
 
     if (!this.removePackageFromProject) {
       return
     }
 
     return this.removePackageFromProject('ember-cli-eslint')
-      .then(_=>this.removePackageFromProject('ember-cli-jshint'))
-      .then(function () {
-        return removeConfig()
-      })
+      .then(_ => this.removePackageFromProject('ember-cli-jshint'))
+      .then(removeConfig)
+      .then(standardFormat)
+      .catch((error) => console.log(error))
   },
 
   /**
@@ -110,6 +111,32 @@ module.exports = {
       })
   },
 
+  _standardFormat () {
+    return this.ui.prompt({
+      type: 'list',
+      name: 'formatFiles',
+      message: 'Would you like to run standard format to upate current code to standard?',
+      choices: [
+        { name: 'Yes', value: true },
+        { name: 'Not now', value: false }
+      ]
+    }).then((format) => {
+      return new Promise((resolve, reject) => {
+        if (format) {
+          this.ui.writeLine(`formatting...`)
+          exec('standard --fix', {}, (error, stdout, stderr) => {
+            if (error) {
+              this.ui.writeLine('Remaining issues we couldnt fix for you...', 'ERROR')
+            }
+            this.ui.writeLine(stdout)
+            this.ui.writeLine(stderr, 'ERROR')
+            resolve()
+          })
+        }
+      })
+    })
+  },
+
   /**
    * Find JSHint and ESLint configuration files
    *
@@ -122,7 +149,7 @@ module.exports = {
     ui.startProgress('Searching for JSHint and ESLint config files')
     return new RSVP.Promise(function (resolve) {
       var files = walkSync(projectRoot, {
-        globs: ['**/.jshintrc','**/.eslintrc.js'],
+        globs: ['**/.jshintrc', '**/.eslintrc.js'],
         ignore: [
           '**/bower_components',
           '**/dist',
