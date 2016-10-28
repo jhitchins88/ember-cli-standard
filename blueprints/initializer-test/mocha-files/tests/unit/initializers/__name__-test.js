@@ -3,7 +3,7 @@ import { describe, it, beforeEach } from 'mocha'
 import Ember from 'ember'
 import <%= classifiedModuleName %>Initializer from '<%= dasherizedModulePrefix %>/initializers/<%= dasherizedModuleName %>'
 
-describe('<%= friendlyTestName %>', function() {
+describe('<%= friendlyTestName %>', function () {
   let application
 
   beforeEach(function() {

@@ -47,7 +47,7 @@ module.exports = {
     var locals = {}
     var addonRawName = options.inRepoAddon ? options.inRepoAddon : options.project.name()
     var addonName = stringUtil.dasherize(addonRawName)
-    var fileName = stringUtil.dasherize(options.entity.name)
+    var fileName = stringUtil.dasherize(options.entity.name);
 
     ['route', 'template'].forEach(function (blueprint) {
       var pathName = [addonName, inflector.pluralize(blueprint), fileName].join('/')

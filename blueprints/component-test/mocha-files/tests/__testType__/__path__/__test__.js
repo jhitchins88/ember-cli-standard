@@ -8,7 +8,7 @@ describeComponent('<%= componentPathName %>', '<%= friendlyTestDescription %>',
     // needs: ['component:foo', 'helper:bar'],
     unit: true<% } %>
   },
-  function() {
+  function () {
     it('renders', function() {
       <% if (testType === 'integration' ) { %>// Set any properties with this.set('myProperty', 'value')
       // Handle any actions with this.on('myAction', function(val) { ... })

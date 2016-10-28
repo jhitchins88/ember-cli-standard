@@ -7,8 +7,8 @@ describeComponent('<%= dasherizedModuleName %>', 'helper:<%= dasherizedModuleNam
   {
     integration: true
   },
-  function() {
-    it('renders', function() {
+  function () {
+    it('renders', function () {
       // Set any properties with this.set('myProperty', 'value')
       // Handle any actions with this.on('myAction', function(val) { ... })
       // Template block usage:
