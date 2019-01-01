@@ -56,7 +56,7 @@
     "testdouble": "^1.6.0"
   },
   "dependencies": {
-    "broccoli-standard": "^0.1.3",
+    "broccoli-standard": "jhitchins88/broccoli-standard#bcc6d022a5a9f092231e940e3fd0862c4fcd11f2",
     "chalk": "^1.1.3",
     "ember-cli-babel": "^5.1.6",
     "ember-cli-get-component-path-option": "^1.0.0",
